@@ -1,22 +1,12 @@
 #include <SFML/Graphics.hpp>
+#include "renderer.hpp"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
 
 int main()
 {
-    sf::VertexArray vertexArray{sf::PrimitiveType::Points, WINDOW_WIDTH * WINDOW_HEIGHT};
-    uint32_t idx = 0;
-    for (uint32_t x{0}; x < WINDOW_WIDTH; ++x)
-    {
-        for (uint32_t y{0}; y < WINDOW_HEIGHT; ++y)
-        {
-            vertexArray[idx].position = sf::Vector2f{static_cast<float>(x), static_cast<float>(y)};
-            vertexArray[idx].color = sf::Color::Green;
-            idx++;
-        }
-    }
-
+    FractalRenderer<double> fractalRenderer{WINDOW_WIDTH, WINDOW_HEIGHT};
     // create the window
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fractal");
 
@@ -36,7 +26,7 @@ int main()
         window.clear(sf::Color::Black);
 
         // draw everything here...
-        window.draw(vertexArray);
+        window.draw(fractalRenderer.get_state());
 
         // end the current frame
         window.display();

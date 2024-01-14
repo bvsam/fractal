@@ -6,7 +6,10 @@
 
 int main()
 {
-    FractalRenderer<double> fractalRenderer{WINDOW_WIDTH, WINDOW_HEIGHT};
+    using PrecisionType = double;
+    const uint32_t max_iterations = 1000;
+    const sf::Vector2<PrecisionType> iteration_constant{-0.8, 0.156};
+    FractalRenderer<double> fractal_renderer{WINDOW_WIDTH, WINDOW_HEIGHT, iteration_constant, max_iterations};
     // create the window
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fractal");
 
@@ -26,7 +29,7 @@ int main()
         window.clear(sf::Color::Black);
 
         // draw everything here...
-        window.draw(fractalRenderer.get_state());
+        window.draw(fractal_renderer.get_state());
 
         // end the current frame
         window.display();

@@ -72,10 +72,9 @@ public:
                 index++;
             }
         }
-        generate();
     }
 
-    void generate()
+    void generate(PrecisionType zoom_factor)
     {
         for (uint32_t y = 0; y < dimensions.y; y++)
         {
@@ -83,8 +82,8 @@ public:
             {
                 // Set the colour of each pixel
                 // Map the pixel coordinates into a range of about -2 to 2
-                const PrecisionType x_val = (static_cast<PrecisionType>(x) - window_center.x) / window_center.x * static_cast<PrecisionType>(MOD_VALUE);
-                const PrecisionType y_val = (static_cast<PrecisionType>(y) - window_center.y) / window_center.y * static_cast<PrecisionType>(MOD_VALUE);
+                const PrecisionType x_val = (static_cast<PrecisionType>(x) - window_center.x) / window_center.x * static_cast<PrecisionType>(MOD_VALUE) / zoom_factor;
+                const PrecisionType y_val = (static_cast<PrecisionType>(y) - window_center.y) / window_center.y * static_cast<PrecisionType>(MOD_VALUE) / zoom_factor;
                 const sf::Vector2<PrecisionType> initial{x_val, y_val};
                 // Determine the number of iterations for the given pixel
                 const uint32_t iterations = julia_set_iterator<PrecisionType>(initial, ITERATION_CONSTANT, MAX_ITERATIONS);

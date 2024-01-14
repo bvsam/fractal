@@ -10,29 +10,56 @@ int main()
     const uint32_t max_iterations = 1000;
     const sf::Vector2<PrecisionType> iteration_constant{-0.8, 0.156};
     FractalRenderer<double> fractal_renderer{WINDOW_WIDTH, WINDOW_HEIGHT, iteration_constant, max_iterations};
-    // create the window
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fractal");
+    PrecisionType zoom = 1.0;
+    PrecisionType zoom_multiplier = 1.05;
+    bool zoom_in = false;
+    bool zoom_out = false;
 
-    // run the program as long as the window is open
+    sf::RenderWindow window{sf::VideoMode{WINDOW_WIDTH, WINDOW_HEIGHT}, "Fractal"};
+
     while (window.isOpen())
     {
-        // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
         {
-            // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+            }
         }
 
-        // clear the window with black color
         window.clear(sf::Color::Black);
-
-        // draw everything here...
+        fractal_renderer.generate(zoom);
         window.draw(fractal_renderer.get_state());
-
-        // end the current frame
         window.display();
+
+        // Check for key presses and determine whether to zoom in or out
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            zoom_in = true;
+        }
+        else
+        {
+            zoom_in = false;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+        {
+            zoom_out = true;
+        }
+        else
+        {
+            zoom_out = false;
+        }
+
+        // Adjust zoom
+        if (zoom_in)
+        {
+            zoom *= zoom_multiplier;
+        }
+        if (zoom_out)
+        {
+            zoom /= zoom_multiplier;
+        }
     }
 
     return 0;

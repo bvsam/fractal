@@ -69,7 +69,18 @@ public:
             for (uint32_t x = 0; x < width; x++)
             {
                 vertex_array[index].position = sf::Vector2f{static_cast<float>(x), static_cast<float>(y)};
+                index++;
+            }
+        }
+        generate();
+    }
 
+    void generate()
+    {
+        for (uint32_t y = 0; y < dimensions.y; y++)
+        {
+            for (uint32_t x = 0; x < dimensions.x; x++)
+            {
                 // Set the colour of each pixel
                 // Map the pixel coordinates into a range of about -2 to 2
                 const PrecisionType x_val = (static_cast<PrecisionType>(x) - window_center.x) / window_center.x * static_cast<PrecisionType>(MOD_VALUE);
@@ -84,8 +95,6 @@ public:
                 const uint8_t value = static_cast<uint8_t>(ratio * 255.0f);
                 const sf::Color color{value, value, value};
                 set_pixel_color(x, y, color);
-
-                index++;
             }
         }
     }

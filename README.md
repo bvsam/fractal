@@ -6,7 +6,7 @@ Visualizing fractals using C++ and SFML.
 
 ### Locally
 
-Note: Building the code locally requires [SFML](https://www.sfml-dev.org/) to be installed.
+Note: Building the code locally requires both [SFML](https://www.sfml-dev.org/) and [CMake](https://cmake.org/) to be installed. The following instructions are meant for Linux/WSL.
 
 To build and run the code, do the following:
 
@@ -34,3 +34,10 @@ make
 ```
 ./fractal
 ```
+
+## References and Attribution
+
+- [_Understanding Julia and Mandelbrot Sets_](https://www.karlsims.com/julia.html) by _Karl Sims_
+- [_Simple Fractal Rendering_](https://youtu.be/uc2yok_pLV4) by _Pezzza's Work_
+- [_From Newton’s method to Newton’s fractal (which Newton knew nothing about)_](https://youtu.be/-RdOwhmqP5s) by _3Blue1Brown_
+  - idea inspiration

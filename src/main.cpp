@@ -7,9 +7,11 @@
 int main()
 {
     using PrecisionType = double;
-    const uint32_t max_iterations = 1000;
     const sf::Vector2<PrecisionType> iteration_constant{-0.8, 0.156};
-    FractalRenderer<double> fractal_renderer{WINDOW_WIDTH, WINDOW_HEIGHT, iteration_constant, max_iterations};
+    const uint32_t max_iterations = 1000;
+    const uint32_t n_samples = 16;
+
+    FractalRenderer<PrecisionType> fractal_renderer{WINDOW_WIDTH, WINDOW_HEIGHT, iteration_constant, max_iterations, n_samples};
     PrecisionType zoom = 1.0;
     PrecisionType zoom_multiplier = 1.05;
     bool zoom_in = false;

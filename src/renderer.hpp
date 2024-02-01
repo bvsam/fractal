@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <random>
 
 #define MOD_VALUE 2.0f
 
@@ -78,6 +79,11 @@ public:
 
     void generate(PrecisionType zoom_factor)
     {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<PrecisionType> prob(0.0, 1.0);
+
+#pragma omp parallel for collapse(2) schedule(static, 250) firstprivate(prob, gen, ITERATION_CONSTANT, MAX_ITERATIONS, window_center, dimensions)
         for (uint32_t y = 0; y < dimensions.y; y++)
         {
             for (uint32_t x = 0; x < dimensions.x; x++)
@@ -87,8 +93,8 @@ public:
                 for (int i = 0; i < N_SAMPLES; i++)
                 {
                     // Add some randomness to each sample to allow for anti-aliasing
-                    const PrecisionType r1 = static_cast<PrecisionType>(rand()) / static_cast<PrecisionType>(RAND_MAX);
-                    const PrecisionType r2 = static_cast<PrecisionType>(rand()) / static_cast<PrecisionType>(RAND_MAX);
+                    const PrecisionType r1 = prob(gen);
+                    const PrecisionType r2 = prob(gen);
                     // Set the colour of each pixel
                     // Map the pixel coordinates into a range of about -2 to 2
                     const PrecisionType x_val = ((static_cast<PrecisionType>(x) - window_center.x) + r1) / window_center.x * static_cast<PrecisionType>(MOD_VALUE) / zoom_factor;

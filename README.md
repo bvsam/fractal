@@ -2,6 +2,13 @@
 
 Visualizing fractals using C++ and SFML.
 
+## Running
+
+Controls:
+
+- **A** - zoom in
+- **E** - zoom out
+
 ## Building
 
 ### Locally

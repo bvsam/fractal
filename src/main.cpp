@@ -13,7 +13,7 @@ int main()
 
     FractalRenderer<PrecisionType> fractal_renderer{WINDOW_WIDTH, WINDOW_HEIGHT, iteration_constant, max_iterations, n_samples};
     PrecisionType zoom = 1.0;
-    PrecisionType zoom_multiplier = 1.05;
+    PrecisionType zoom_multiplier = 1.5;
     bool zoom_in = false;
     bool zoom_out = false;
 
